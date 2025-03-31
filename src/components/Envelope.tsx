@@ -19,17 +19,14 @@ const Envelope: React.FC = () => {
     setIsOpen(true);
     setTimeout(() => {
       setShowTypingMessage(true);
-    }, 3000); // Tahan teks utama lebih lama sebelum animasi typing
+    }, 3000);
   };
 
   return (
     <div className="relative w-full max-w-md mx-auto text-center">
       {/* Amplop */}
-      <div
-        className="relative w-full max-w-md mx-auto cursor-pointer aspect-[3/2]"
-        onClick={handleEnvelopeOpen}
-      >
-        <motion.div className="relative bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-xl w-full h-full">
+      <div className="relative w-full max-w-md mx-auto cursor-pointer aspect-[3/2]" onClick={handleEnvelopeOpen}>
+        <motion.div className="relative w-full h-full bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-xl">
           {/* Flap Amplop */}
           <motion.div
             className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-green-600 to-green-400"
@@ -53,7 +50,7 @@ const Envelope: React.FC = () => {
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                className="absolute inset-6 bg-white rounded-xl p-6 flex flex-col items-center justify-center"
+                className="absolute inset-4 md:inset-6 bg-white rounded-xl p-4 md:p-6 flex flex-col items-center justify-center"
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 120 }}
@@ -61,60 +58,35 @@ const Envelope: React.FC = () => {
               >
                 <div className="text-center">
                   {!showTypingMessage ? (
-                    // Menampilkan teks utama lebih lama sebelum animasi typing
                     <>
-                      <motion.h2
-                        className="font-bold text-green-600 mb-2 text-2xl"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5, duration: 2 }}
-                      >
+                      <motion.h2 className="font-bold text-green-600 mb-2 text-lg md:text-2xl" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 2 }}>
                         Selamat {userName}!
                       </motion.h2>
-                      <motion.h1
-                        className="font-bold text-yellow-500 mb-4 text-3xl"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1, duration: 2 }}
-                      >
+                      <motion.h1 className="font-bold text-yellow-500 mb-4 text-xl md:text-3xl" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 2 }}>
                         Hari Raya Idul Fitri 1446H
                       </motion.h1>
-                      <motion.p
-                        className="text-green-700 mb-6"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.5, duration: 2 }}
-                      >
+                      <motion.p className="text-green-700 mb-4 md:mb-6 text-sm md:text-base" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 2 }}>
                         Mohon Maaf Lahir dan Batin
                       </motion.p>
                     </>
                   ) : !showReplyButton ? (
-                    // Animasi typing setelah teks utama
                     <TypeAnimation
                       sequence={[
                         `Jadi Maafin aku ya, ${userName} 🙏`, 2000,
                         "Kalo aku pernah salah.. 😔", 2000,
                         "Semoga kita selalu diberikan kemudahan.. ❤️", 2000,
-                        () => setShowReplyButton(true), // Setelah animasi selesai, tampilkan teks utama kembali
+                        () => setShowReplyButton(true),
                       ]}
                       wrapper="p"
                       cursor={true}
                       repeat={0}
-                      className="text-green-600 font-medium text-lg"
+                      className="text-green-600 font-medium text-base md:text-lg"
                     />
                   ) : (
-                    // Kembali ke teks utama setelah animasi typing selesai
                     <>
-                      <motion.h2 className="font-bold text-green-600 mb-2 text-2xl">
-                        Selamat {userName}!
-                      </motion.h2>
-                      <motion.h1 className="font-bold text-yellow-500 mb-4 text-3xl">
-                        Hari Raya Idul Fitri 1446H
-                      </motion.h1>
-                      <motion.p className="text-green-700 mb-6">
-                        Mohon Maaf Lahir dan Batin
-                      </motion.p>
-                      {/* Tombol Beri Balasan */}
+                      <motion.h2 className="font-bold text-green-600 mb-2 text-lg md:text-2xl">Selamat {userName}!</motion.h2>
+                      <motion.h1 className="font-bold text-yellow-500 mb-4 text-xl md:text-3xl">Hari Raya Idul Fitri 1446H</motion.h1>
+                      <motion.p className="text-green-700 mb-4 md:mb-6 text-sm md:text-base">Mohon Maaf Lahir dan Batin</motion.p>
                       <a
                         href={`https://wa.me/62895403003558?&text=Iya%2C%20Barakallahufik..,Iqbal Selamat Idul Fitri, Mohon Maaf Lahir Batin!`}
                         target="_blank"

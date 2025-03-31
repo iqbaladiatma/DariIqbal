@@ -62,7 +62,7 @@ const Index: React.FC = () => {
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}
           >
-            <h2 className="text-xl font-bold text-gray-700 mb-4">Masukkan Nama Anda</h2>
+            <h2 className="text-xl font-bold text-gray-700 mb-4">Masukkan Namamu bro!</h2>
             <input
               type="text"
               placeholder="Nama Anda..."
@@ -143,7 +143,7 @@ const Index: React.FC = () => {
 
         {/* Social Media Icons */}
         <motion.div
-          className="mt-4 flex justify-center space-x-4"
+          className="mt-4 flex flex-wrap justify-center gap-2 md:gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3, ease: "easeOut" } }}
         >
