@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
-const Envelope: React.FC = () => {
+// Definisikan tipe props untuk komponen Envelope
+interface EnvelopeProps {
+  userName: string;
+}
+
+const Envelope: React.FC<EnvelopeProps> = ({ userName }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [userName, setUserName] = useState<string | null>(null);
   const [showTypingMessage, setShowTypingMessage] = useState(false);
   const [showReplyButton, setShowReplyButton] = useState(false);
-
-  useEffect(() => {
-    const name = window.prompt("Masukkan nama lengkap Anda:");
-    if (name) {
-      setUserName(name);
-    }
-  }, []);
 
   const handleEnvelopeOpen = () => {
     setIsOpen(true);

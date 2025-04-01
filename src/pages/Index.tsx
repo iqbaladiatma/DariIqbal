@@ -20,7 +20,7 @@ const Index: React.FC = () => {
   const [userName, setUserName] = useState("");
   const [showModal, setShowModal] = useState(true);
 
-  // Mengecek preferensi sistem
+  // Check system color scheme preference
   useEffect(() => {
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
     setIsDarkMode(prefersDarkMode.matches);
@@ -33,11 +33,12 @@ const Index: React.FC = () => {
     return () => prefersDarkMode.removeEventListener("change", handler);
   }, []);
 
-  // Animasi perubahan tema
+  // Toggle dark mode
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
 
+  // Set isLoaded after a delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -48,39 +49,6 @@ const Index: React.FC = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {/* Modal Input Nama */}
-      {showModal && (
-        <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div
-            className="bg-white rounded-lg p-6 text-center shadow-lg"
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.8 }}
-          >
-            <h2 className="text-xl font-bold text-gray-700 mb-4">Masukkan Namamu bro!</h2>
-            <input
-              type="text"
-              placeholder="Nama Anda..."
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              className="border rounded p-2 w-full mb-4"
-            />
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              onClick={() => setShowModal(false)}
-            >
-              Simpan
-            </button>
-          </motion.div>
-        </motion.div>
-      )}
-
-      {/* Latar belakang dengan transisi */}
       <motion.div
         key={isDarkMode ? "dark" : "light"}
         className={`min-h-screen flex flex-col items-center justify-center relative py-12 px-4 overflow-hidden
@@ -93,7 +61,7 @@ const Index: React.FC = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        {/* Tombol Toggle Mode */}
+        {/* Dark Mode Toggle Button */}
         <motion.button
           onClick={toggleDarkMode}
           className={`fixed top-4 right-4 z-50 p-2 rounded-full shadow-lg transition-all duration-300
@@ -103,7 +71,39 @@ const Index: React.FC = () => {
           {isDarkMode ? "☀️" : "🌙"}
         </motion.button>
 
-        {/* Background ornaments */}
+        {/* Modal for Name Input */}
+        {showModal && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className={`p-6 rounded-lg shadow-lg ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"}`}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+            >
+              <h2 className="text-xl font-bold mb-4">Enter Your Name</h2>
+              <input
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                className={`w-full p-2 mb-4 border rounded ${isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"}`}
+                placeholder="Your Name"
+              />
+              <button
+                onClick={() => setShowModal(false)}
+                className={`px-4 py-2 rounded ${isDarkMode ? "bg-green-600 hover:bg-green-700" : "bg-green-500 hover:bg-green-600"} text-white`}
+              >
+                Submit
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Background Ornaments */}
         <IslamicOrnaments />
 
         {/* 3D Islamic Pattern */}
@@ -122,12 +122,12 @@ const Index: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Main Envelope */}
+        {/* Main Envelope Component */}
         <div className="w-full max-w-lg relative z-20">
-          <Envelope userName={userName}/>
+          <Envelope userName={userName} />
         </div>
 
-        {/* Footer message */}
+        {/* Footer Message */}
         {isLoaded && (
           <motion.div
             className={`mt-8 text-center max-w-md mx-auto relative z-30
